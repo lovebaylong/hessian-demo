@@ -4,14 +4,18 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import yxw.example.hessiandemoclient.user.pojo.UserPojo;
 import yxw.example.hessiandemoclient.user.service.UserService;
 import yxw.example.user.entity.User;
 import yxw.example.user.remoting.UserRemoting;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRemoting userRemoting;
@@ -51,6 +55,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> list2() {
         return userRemoting.findAll();
+    }
+
+    @Override
+    public JsonNode save(UserPojo user) {
+        User userDto = new User();
+        BeanUtils.copyProperties(user, userDto);
+        log.info("保存用户信息，用户信息: {}", user.toString());
+        userRemoting.save(userDto);
+        ObjectNode objectNode = mapper.createObjectNode();
+        objectNode.put("errcode", 0);
+        return objectNode;
     }
 
     private JsonNode defaultErrorNode() {

@@ -1,6 +1,7 @@
 package yxw.example.hessiandemoclient.user.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import yxw.example.hessiandemoclient.user.pojo.UserPojo;
 import yxw.example.user.entity.User;
 
 import java.util.List;
@@ -13,4 +14,6 @@ public interface UserService {
     User detail2(Long id);
 
     List<User> list2();
+
+    JsonNode save(UserPojo user);
 }
