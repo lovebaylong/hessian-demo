@@ -26,7 +26,7 @@ public class UserOpenApiController {
     @ApiOperation(value = "根据用户编号获取用户详情，返回单个Json对象", notes = "数据来源于Hessian接口",
             response = ResponseEntity.class,
             responseHeaders = @ResponseHeader(name = "header1", response = String.class),
-            authorizations = @Authorization(value = "token", scopes = {@AuthorizationScope(scope = "read:user", description = "用户只读")})
+            authorizations = @Authorization(value = "demoClient_auth", scopes = {@AuthorizationScope(scope = "read:user", description = "用户只读")})
     )
     @ApiResponses(value = {
             @ApiResponse(code = 401, message = "未经授权"),
