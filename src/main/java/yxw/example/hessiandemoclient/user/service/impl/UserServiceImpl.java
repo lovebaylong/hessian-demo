@@ -43,6 +43,16 @@ public class UserServiceImpl implements UserService {
         return arrayNode;
     }
 
+    @Override
+    public User detail2(Long id) {
+        return userRemoting.findById(id);
+    }
+
+    @Override
+    public List<User> list2() {
+        return userRemoting.findAll();
+    }
+
     private JsonNode defaultErrorNode() {
         ObjectNode objectNode = mapper.createObjectNode();
         objectNode.put("errcode", 1);
